@@ -1,3 +1,72 @@
-<p>
-  films works!
-</p>
+<app-header></app-header>
+<main role="main">
+
+  <!-- Searcher -->
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Find films:</h1>
+      <p class="lead text-muted">Find films by title</p>
+      <form (ngSubmit)="findFilms()" >
+        <div class="form-group">
+          <label for="input-user" class="sr-only">Film title</label>
+          <input
+            type="text"
+            id="input-user"
+            [(ngModel)]="filmName"
+            [ngModelOptions]="{standalone: true}"
+            class="form-control"
+            placeholder="For example: Star Wars"
+            required=""
+            autofocus="">
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!filmName.trim()">
+          Search
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Search results -->
+  <div class="album py-5 bg-light" *ngIf="films.length">
+    <div class="container">
+      <div class="row">
+        <!-- Film Card, must be a component -->
+        <div class="col-md-4" *ngFor="let film of films">
+          <div class="card mb-4 box-shadow">
+            <img
+              class="card-img-top"
+              alt="{{ film.Title }}"
+              src="{{ film.Poster }}"
+              data-holder-rendered="true">
+            <div class="card-body">
+              <p class="text-center card-text">{{film.Title}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Favorite</button>
+                </div>
+                <small class="text-muted">Year: <strong>{{ film.Year }}</strong></small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  -->
+        <div class="col-md-4" *ngIf="showMore">
+          <div class="card mb-4 box-shadow">
+            <button type="btn btn-lg btn-block" (click)="getMore()">
+              Show more
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No films finded -->
+  <div class="no-results" *ngIf="!films.length">
+    <h2 class="text-center">No results</h2>
+  </div>
+
+  </main>
+

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OmbdService } from '../omdb.service';
 
 @Component({
   selector: 'app-films',
@@ -7,9 +8,46 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FilmsComponent implements OnInit {
 
-  constructor() { }
+  films: Array<any> = [];
+  results: 0;
+  showMore: false;
+  filmName: String = '';
 
-  ngOnInit() {
+  constructor (
+    private omdbService: OmbdService
+  ) { }
+
+  ngOnInit () {
+    
   }
 
+  findFilms () {
+    this.omdbService.findFilms(this.filmName).subscribe(
+      response => {
+        console.log('Response of films:', response);
+        this.films = response.films;
+        this.results = response.totalResults;
+        this.showMore = response.showMore;
+      },
+      err => {
+        console.warn('Error to get films :', err);
+        this.films = [];
+      }
+    );
+  }
+
+  getMore () {
+    this.omdbService.getMore().subscribe(
+      response => {
+        console.log('Response of films:', response);
+        this.films = response.films;
+        this.results = response.totalResults;
+        this.showMore = response.showMore;
+      },
+      err => {
+        console.warn('Error to get films :', err);
+        this.films = [];
+      }
+    );
+  }
 }

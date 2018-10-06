@@ -1,24 +1,24 @@
 <div class="login-wrapper">
   <form (ngSubmit)="onSubmit()" class="form-signin text-center">
     <i class="logo mb-4 fa fa-film"></i>
-    <h1 class="h3 mb-3 font-weight-normal">Por favor, inicia sesión</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Please, sign in</h1>
     <div class="alert alert-danger" role="alert" *ngIf="showErrorLogin">
-      <strong>Ups!</strong> Usuario o contraseña incorrectos
+      <strong>Ups!</strong> Username or password incorrect
     </div>
     <div class="form-group" [ngClass]="{ 'has-danger': showErrorLogin}">
-      <label for="input-user" class="sr-only">Usuario</label>
+      <label for="input-user" class="sr-only">Username</label>
       <input
         type="text"
         id="input-user"
         [(ngModel)]="username"
         [ngModelOptions]="{standalone: true}"
         class="form-control"
-        placeholder="Usuario"
+        placeholder="Username"
         required=""
         autofocus="">
     </div>
     <div class="form-group" [ngClass]="{ 'has-danger': showErrorLogin}">
-      <label for="input-password" class="sr-only">Contraseña</label>
+      <label for="input-password" class="sr-only">Password</label>
       <input
         type="password"
         id="input-password"
@@ -26,7 +26,7 @@
         [ngModelOptions]="{standalone: true}"
         class="form-control"
         
-        placeholder="Contraseña"
+        placeholder="Password"
         required="">
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!username.trim() || !password.trim()">

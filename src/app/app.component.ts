@@ -3,8 +3,6 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { filter, map, mergeMap } from 'rxjs/operators';
 
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,7 +10,6 @@ import { filter, map, mergeMap } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   title = 'Cliente OMDB';
-
 
   constructor(
     private router: Router,
