@@ -31,6 +31,11 @@ export class UserService implements CanActivate {
     return throwError('Usuario o contraseña incorrectos');
   }
 
+  logout () {
+    sessionStorage.removeItem(CONSTS.storage.user);
+    this.router.navigateByUrl(''); // Go To Login
+  }
+
   isLogged () {
     return sessionStorage.getItem(CONSTS.storage.user);
   }
