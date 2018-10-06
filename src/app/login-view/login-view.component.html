@@ -2,26 +2,34 @@
   <form (ngSubmit)="onSubmit()" class="form-signin text-center">
     <i class="logo mb-4 fa fa-film"></i>
     <h1 class="h3 mb-3 font-weight-normal">Por favor, inicia sesión</h1>
-    <label for="input-user" class="sr-only">Usuario</label>
-    <input
-      type="text"
-      id="input-user"
-      [(ngModel)]="username"
-      [ngModelOptions]="{standalone: true}"
-      class="form-control"
-      placeholder="Usuario"
-      required=""
-      autofocus="">
-    <label for="input-password" class="sr-only">Contraseña</label>
-    <input
-      type="password"
-      id="input-password"
-      [(ngModel)]="password"
-      [ngModelOptions]="{standalone: true}"
-      class="form-control"
-      placeholder="Contraseña"
-      required="">
-    <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!username.trim() && !password.trim()">
+    <div class="alert alert-danger" role="alert" *ngIf="showErrorLogin">
+      <strong>Ups!</strong> Usuario o contraseña incorrectos
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-danger': showErrorLogin}">
+      <label for="input-user" class="sr-only">Usuario</label>
+      <input
+        type="text"
+        id="input-user"
+        [(ngModel)]="username"
+        [ngModelOptions]="{standalone: true}"
+        class="form-control"
+        placeholder="Usuario"
+        required=""
+        autofocus="">
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-danger': showErrorLogin}">
+      <label for="input-password" class="sr-only">Contraseña</label>
+      <input
+        type="password"
+        id="input-password"
+        [(ngModel)]="password"
+        [ngModelOptions]="{standalone: true}"
+        class="form-control"
+        
+        placeholder="Contraseña"
+        required="">
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!username.trim() || !password.trim()">
       Iniciar sesión
     </button>
   </form>
