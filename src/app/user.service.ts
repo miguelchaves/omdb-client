@@ -12,7 +12,7 @@ export class UserService implements CanActivate {
   /**
    * Mock of users with email, password and name
    */
-  USERS = [
+  private USERS = [
     {
       email: 'prueba',
       password: 'prueba',
