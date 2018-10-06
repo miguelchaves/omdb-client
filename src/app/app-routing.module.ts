@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginViewComponent } from './login-view/login-view.component'
 import { UserService } from './user.service';
 import { FilmsComponent } from './films/films.component';
+import { FavoritesComponent } from './favorties/favorites.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,7 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [UserService],
     data: {
-      title: 'Iniciar sesión',
+      title: 'Sign in',
       requireLogin: false
     },
   },
@@ -21,10 +22,21 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [UserService],
     data: {
-      title: 'Listado de películas',
+      title: 'List of films',
       requireLogin: true
     },
   },
+  {
+    path: 'favorites',
+    component: FavoritesComponent,
+    pathMatch: 'full',
+    canActivate: [UserService],
+    data: {
+      title: 'Favorites',
+      requireLogin: true
+    },
+  },
+
 
 ];
 

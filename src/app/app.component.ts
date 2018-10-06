@@ -9,7 +9,7 @@ import { filter, map, mergeMap } from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'Cliente OMDB';
+  title = 'OMDB Client';
 
   constructor(
     private router: Router,

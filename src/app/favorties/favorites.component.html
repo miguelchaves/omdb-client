@@ -1,0 +1,48 @@
+<app-header></app-header>
+<main role="main">
+  <!-- Favorites section -->
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Favorites:</h1>
+    </div>
+  </section>
+
+  <!-- Search results -->
+  <div class="album py-5 bg-light" *ngIf="favorites.length">
+    <div class="container">
+      <div class="row">
+        <!-- Film Card, must be a component -->
+        <div class="col-md-4" *ngFor="let film of favorites">
+          <div class="card mb-4 box-shadow">
+            <img
+              class="card-img-top"
+              alt="{{ film.Title }}"
+              src="{{ film.Poster }}"
+              data-holder-rendered="true">
+            <div class="card-body">
+              <p class="text-center card-text">{{film.Title}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button"
+                    class="btn btn-sm btn-info"
+                    (click)="removeFavorite(film)">
+                    Favorite
+                  </button>
+                </div>
+                <small class="text-muted">Year: <strong>{{ film.Year }}</strong></small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No favories found -->
+  <div class="no-results bg-light" *ngIf="!favorites.length">
+    <h2 class="text-center">No favorite films found</h2>
+  </div>
+
+  </main>
+

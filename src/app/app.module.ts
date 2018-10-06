@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginViewComponent } from './login-view/login-view.component';
 import { FilmsComponent } from './films/films.component';
+import { FavoritesComponent } from './favorties/favorites.component';
 import { HeaderComponent } from './header/header.component';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { HeaderComponent } from './header/header.component';
     AppComponent,
     LoginViewComponent,
     FilmsComponent,
+    FavoritesComponent,
     HeaderComponent
   ],
   imports: [

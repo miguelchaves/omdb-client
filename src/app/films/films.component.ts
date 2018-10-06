@@ -8,14 +8,20 @@ import { OmbdService } from '../omdb.service';
 })
 export class FilmsComponent implements OnInit {
 
-  films: Array<any> = [];
-  results: 0;
-  showMore: false;
-  filmName: String = '';
+  films: Array<any>;
+  totalResults: Number;
+  showMore: Boolean;
+  filmName: String;
 
   constructor (
     private omdbService: OmbdService
-  ) { }
+    
+  ) {
+    this.filmName = this.omdbService.currentSearchName;
+    this.films = this.omdbService.currentSearch;
+    this.totalResults = this.omdbService.totalResults;
+    this.showMore = this.omdbService.showMore;
+  }
 
   ngOnInit () {
     
@@ -26,7 +32,7 @@ export class FilmsComponent implements OnInit {
       response => {
         console.log('Response of films:', response);
         this.films = response.films;
-        this.results = response.totalResults;
+        this.totalResults = response.totalResults;
         this.showMore = response.showMore;
       },
       err => {
@@ -41,7 +47,7 @@ export class FilmsComponent implements OnInit {
       response => {
         console.log('Response of films:', response);
         this.films = response.films;
-        this.results = response.totalResults;
+        this.totalResults = response.totalResults;
         this.showMore = response.showMore;
       },
       err => {
@@ -49,5 +55,15 @@ export class FilmsComponent implements OnInit {
         this.films = [];
       }
     );
+  }
+
+  toggleFavorite (film) {
+    const wasFavorite = film.isFavorite;
+    film.isFavorite = !wasFavorite;
+    if (wasFavorite) {
+      this.omdbService.removeFavorite(film);
+    } else {
+      this.omdbService.addFavorite(film);
+    }
   }
 }

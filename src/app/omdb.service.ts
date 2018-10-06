@@ -11,16 +11,21 @@ export class OmbdService {
   private stream: Observable<any>;
   private http: HttpClient;
   private favorites: Array<any> = [];
-  private currentSearch: Array<any> = [];
-  private currentSearchName: String = '';
-  private totalResults: Number;
-  private showMore: Boolean = false;
   private currentPage: 1;
 
+  public currentSearchName: String = '';
+  public currentSearch: Array<any> = [];
+  public totalResults: Number = 0;
+  public showMore: Boolean = false;
+  
   constructor (
     http: HttpClient
   ) {
     this.http = http;
+    const localFavorites = localStorage.getItem(CONSTS.storage.favorites);
+    if (localFavorites) {
+      this.favorites = JSON.parse(localFavorites);
+    }
   }
 
   findFilms (name: String): Observable<any> {
@@ -42,11 +47,16 @@ export class OmbdService {
     const observable: Observable<any> = this.http.get(url);
     return observable.pipe(
       map(response => {
+        const totalResults = parseInt(response.totalResults);
         if (response.Search.length > 0) {
+          const newFilms = response.Search.map(film => {
+            film.isFavorite = this.favorites.some(favorite => favorite.imdbID === film.imdbID);
+            return film;
+          });
           this.currentSearch = this.currentSearch.concat(response.Search);
-          this.totalResults = response.totalResults;
-          this.showMore = (this.currentPage * 10) / response.totalResults < 1;
-        } else if (response.totalResults === 0) {
+          this.totalResults = totalResults;
+          this.showMore = ((this.currentPage * 10) / totalResults) < 1;
+        } else if (totalResults === 0) {
           this.currentSearch = [];
           this.totalResults = 0;
           this.showMore = false;
@@ -59,17 +69,29 @@ export class OmbdService {
   private formatResult () {
     return {
       films: this.currentSearch,
-      total: this.totalResults,
+      totalResults: this.totalResults,
       showMore: this.showMore
     };
   }
 
   getFavorites () {
+    return this.favorites;
   }
 
-  setFavorite (film) {
+  addFavorite (film) {
+    this.favorites.push(film);
+    this.saveFavorites();
   }
 
   removeFavorite (film) {
+    film.isFavorite = false;
+    this.favorites = this.favorites.filter(
+      favorite => favorite.imdbID !== film.imdbID
+    );
+    this.saveFavorites();
+  }
+
+  private saveFavorites () {
+    localStorage.setItem(CONSTS.storage.favorites, JSON.stringify(this.favorites));
   }
 }

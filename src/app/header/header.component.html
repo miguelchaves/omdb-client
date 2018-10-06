@@ -1,9 +1,13 @@
 <header>
   <div class="navbar navbar-dark bg-dark box-shadow">
     <div class="container d-flex justify-content-between">
-      <a href="#" class="navbar-brand d-flex align-items-center">
+      <a routerLink="/films" class="navbar-brand d-flex align-items-center">
         <i class="logo fa fa-film"></i>
-        <strong>OMDB Client</strong>
+        <strong>Films</strong>
+      </a>
+      <a routerLink="/favorites" class="navbar-brand d-flex align-items-center">
+        <i class="logo fa fa-star"></i>
+        Favorites
       </a>
       <button class="btn" type="button" (click)="logout()">
         Logout
