@@ -8,24 +8,19 @@ import { map } from 'rxjs/operators';
 export class OmbdService {
 
   private apiUrl = `http://www.omdbapi.com/?apikey=${CONSTS.omdbKey}&s=`;
-  private stream: Observable<any>;
-  private http: HttpClient;
-  private favorites: Array<any> = [];
   private currentPage: 1;
 
   public currentSearchName: String = '';
+  public favorites: Array<any>;
   public currentSearch: Array<any> = [];
   public totalResults: Number = 0;
   public showMore: Boolean = false;
   
   constructor (
-    http: HttpClient
+    private http: HttpClient
   ) {
-    this.http = http;
     const localFavorites = localStorage.getItem(CONSTS.storage.favorites);
-    if (localFavorites) {
-      this.favorites = JSON.parse(localFavorites);
-    }
+    this.favorites = localFavorites ? JSON.parse(localFavorites) : [];
   }
 
   findFilms (name: String): Observable<any> {
@@ -74,10 +69,6 @@ export class OmbdService {
     };
   }
 
-  getFavorites () {
-    return this.favorites;
-  }
-
   addFavorite (film) {
     this.favorites.push(film);
     this.saveFavorites();
@@ -85,6 +76,11 @@ export class OmbdService {
 
   removeFavorite (film) {
     film.isFavorite = false;
+    const isInList = this.currentSearch
+      .find(filmInSearch => filmInSearch.imdbID === film.imdbID);
+    if (isInList) {
+      isInList.isFavorite = false;
+    }
     this.favorites = this.favorites.filter(
       favorite => favorite.imdbID !== film.imdbID
     );

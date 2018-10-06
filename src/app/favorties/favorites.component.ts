@@ -13,7 +13,7 @@ export class FavoritesComponent implements OnInit {
   constructor (
     private omdbService: OmbdService
   ) {
-    this.favorites = this.omdbService.getFavorites();
+    this.favorites = this.omdbService.favorites;
   }
 
   ngOnInit () {
@@ -22,6 +22,6 @@ export class FavoritesComponent implements OnInit {
 
   removeFavorite (film) {
     this.omdbService.removeFavorite(film);
-    this.favorites = this.omdbService.getFavorites();
+    this.favorites = this.omdbService.favorites;
   }
 }
