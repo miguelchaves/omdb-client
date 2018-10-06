@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OmbdService } from '../omdb.service';
+import { Film } from '../app.interfaces';
 
 @Component({
   selector: 'app-favorites',
@@ -8,7 +9,7 @@ import { OmbdService } from '../omdb.service';
 })
 export class FavoritesComponent implements OnInit {
 
-  favorites: Array<any>;
+  favorites: Array<Film>;
 
   constructor (
     private omdbService: OmbdService

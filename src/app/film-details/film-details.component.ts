@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OmbdService } from '../omdb.service';
 import { ActivatedRoute } from '@angular/router';
+import { FilmDetails } from '../app.interfaces';
 
 @Component({
   selector: 'app-film-details',
@@ -10,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class FilmDetailsComponent implements OnInit {
 
   imdbID: string;
-  film: any = undefined;
+  film: FilmDetails|Boolean = undefined;
 
   constructor (
     private omdbService: OmbdService,

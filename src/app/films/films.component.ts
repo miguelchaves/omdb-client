@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OmbdService } from '../omdb.service';
+import { Film } from '../app.interfaces';
 
 @Component({
   selector: 'app-films',
@@ -8,7 +9,7 @@ import { OmbdService } from '../omdb.service';
 })
 export class FilmsComponent implements OnInit {
 
-  films: Array<any>;
+  films: Array<Film>;
   totalResults: Number;
   showMore: Boolean;
   filmName: String;

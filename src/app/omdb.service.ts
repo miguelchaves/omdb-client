@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { CONSTS } from './app.constants';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Film, ResponseFilms } from './app.interfaces';
 
 @Injectable()
 export class OmbdService {
@@ -11,8 +12,8 @@ export class OmbdService {
   private currentPage: 1;
 
   public currentSearchName: String = '';
-  public favorites: Array<any>;
-  public currentSearch: Array<any> = [];
+  public favorites: Array<Film>;
+  public currentSearch: Array<Film> = [];
   public totalResults: Number = 0;
   public showMore: Boolean = false;
   
@@ -23,7 +24,7 @@ export class OmbdService {
     this.favorites = localFavorites ? JSON.parse(localFavorites) : [];
   }
 
-  findFilms (name: String): Observable<any> {
+  findFilms (name: String): Observable<ResponseFilms> {
     if (name.trim() === this.currentSearchName) {
       return of(this.formatResult());
     }
@@ -37,7 +38,7 @@ export class OmbdService {
     return this.obtainFilms();
   }
 
-  obtainFilms (): Observable<any> {
+  obtainFilms (): Observable<ResponseFilms> {
     const url = `${this.apiUrl}&s=${this.currentSearchName}&plot=full&page=${this.currentPage}`;
     const observable: Observable<any> = this.http.get(url);
     return observable.pipe(
@@ -61,7 +62,7 @@ export class OmbdService {
     );
   }
 
-  private formatResult () {
+  private formatResult () : ResponseFilms {
     return {
       films: this.currentSearch,
       totalResults: this.totalResults,
