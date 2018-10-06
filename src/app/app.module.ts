@@ -8,11 +8,13 @@ import { UserService } from './user.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginViewComponent } from './login-view/login-view.component';
+import { FilmsComponent } from './films/films.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginViewComponent
+    LoginViewComponent,
+    FilmsComponent
   ],
   imports: [
     BrowserModule,

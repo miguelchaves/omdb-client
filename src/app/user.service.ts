@@ -2,9 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { CanActivate }    from '@angular/router';
 import { CONSTS } from './app.constants';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UserService implements CanActivate {
+
+  constructor (private router: Router) { }
 
   /**
    * Mock of users with email, password and name
@@ -33,10 +36,14 @@ export class UserService implements CanActivate {
   }
 
   canActivate (route) {
-    if (route.data.requireLogin === true) {
-      return Boolean(this.isLogged());
-    } else if (route.data.requireLogin === false) {
-      return !this.isLogged();
+    const isLogged = this.isLogged();
+    if (!isLogged && route.data.requireLogin) {
+      this.router.navigateByUrl(''); // Go To Login
+      return false;
+    }
+    if (isLogged && route.data.requireLogin === false) {
+      this.router.navigateByUrl('films'); // Go To Home Logged
+      return false;
     }
     return true;
   }
