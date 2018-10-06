@@ -13,6 +13,7 @@ import { LoginViewComponent } from './login-view/login-view.component';
 import { FilmsComponent } from './films/films.component';
 import { FavoritesComponent } from './favorties/favorites.component';
 import { HeaderComponent } from './header/header.component';
+import { FilmDetailsComponent } from './film-details/film-details.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { HeaderComponent } from './header/header.component';
     LoginViewComponent,
     FilmsComponent,
     FavoritesComponent,
+    FilmDetailsComponent,
     HeaderComponent
   ],
   imports: [

@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class OmbdService {
 
-  private apiUrl = `http://www.omdbapi.com/?apikey=${CONSTS.omdbKey}&s=`;
+  private apiUrl = `http://www.omdbapi.com/?apikey=${CONSTS.omdbKey}`;
   private currentPage: 1;
 
   public currentSearchName: String = '';
@@ -38,7 +38,7 @@ export class OmbdService {
   }
 
   obtainFilms (): Observable<any> {
-    const url = `${this.apiUrl}${this.currentSearchName}&plot=full&page=${this.currentPage}`;
+    const url = `${this.apiUrl}&s=${this.currentSearchName}&plot=full&page=${this.currentPage}`;
     const observable: Observable<any> = this.http.get(url);
     return observable.pipe(
       map(response => {
@@ -89,5 +89,15 @@ export class OmbdService {
 
   private saveFavorites () {
     localStorage.setItem(CONSTS.storage.favorites, JSON.stringify(this.favorites));
+  }
+
+  /**
+   * The info obtained in general searchs hasn't all info of the film.
+   * Then, we obtain all info with the IMDB ID of the film
+   * @param imdbID 
+   */
+  filmDetails (imdbID: String): Observable<any> {
+    const url = `${this.apiUrl}&i=${imdbID}`;
+    return this.http.get(url);
   }
 }

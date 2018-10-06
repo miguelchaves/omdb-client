@@ -4,6 +4,7 @@ import { LoginViewComponent } from './login-view/login-view.component'
 import { UserService } from './user.service';
 import { FilmsComponent } from './films/films.component';
 import { FavoritesComponent } from './favorties/favorites.component';
+import { FilmDetailsComponent } from './film-details/film-details.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,15 @@ const routes: Routes = [
     canActivate: [UserService],
     data: {
       title: 'Favorites',
+      requireLogin: true
+    },
+  },
+  {
+    path: 'films/:id',
+    component: FilmDetailsComponent,
+    canActivate: [UserService],
+    data: {
+      title: 'Film detail',
       requireLogin: true
     },
   },

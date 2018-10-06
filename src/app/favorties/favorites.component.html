@@ -23,7 +23,12 @@
               <p class="text-center card-text">{{film.Title}}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    routerLink="/films/{{film.imdbID}}">
+                    View
+                  </button>
                   <button type="button"
                     class="btn btn-sm btn-info"
                     (click)="removeFavorite(film)">
